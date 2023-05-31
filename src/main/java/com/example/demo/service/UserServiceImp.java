@@ -5,6 +5,7 @@ import com.example.demo.model.User;
 import com.example.demo.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,16 +28,16 @@ public class UserServiceImp implements UserService {
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
         int totalRecords = userRepository.getCount();
-        int numThreads = 10;
+        int numThreads = 20;
 
-        int recordsPerThread = totalRecords / numThreads;
+        int size = totalRecords / numThreads;
 
         List<Thread> threads = new ArrayList<>();
 
         for (int i = 0; i < numThreads; i++) {
-            final int threadIndex = i;
+            final int page = i;
             Thread thread = new Thread(() -> {
-                List<User> data = userRepository.getUsersInRange(threadIndex, recordsPerThread);
+                List<User> data = userRepository.findAll(PageRequest.of(page, size)).getContent();
                 synchronized (users) {
                     users.addAll(data);
                 }

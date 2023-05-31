@@ -20,8 +20,8 @@ public class UserServiceImp implements UserService {
 
 
     @Override
-    public Page<User> getAll() {
-        return null;
+    public List<User> getAll() {
+        return userRepository.findAll();
     }
 
     @Override

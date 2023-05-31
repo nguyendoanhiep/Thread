@@ -14,8 +14,14 @@ public class UserController {
 
     @GetMapping("/getAll")
     public ResponseEntity<?> getAll() {
+        return ResponseEntity.ok(userService.getAll());
+    }
+
+    @GetMapping("/getAllByMultiThread")
+    public ResponseEntity<?> getAllByMultiThread() {
         return ResponseEntity.ok(userService.findAll());
     }
+
 
     @PostMapping("/save")
     public void save() {

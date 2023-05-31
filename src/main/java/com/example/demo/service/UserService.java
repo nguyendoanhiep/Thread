@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface UserService {
-    Page<User> getAll();
+    List<User> getAll();
     List<User> findAll();
 
     void save();
